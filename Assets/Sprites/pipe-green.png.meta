@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60f629b7a379cab4db4e3629ca0780c6
+guid: 62a258d0e46ad224d84122fe7587e08c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6437894598648814375
-    second: yellowbird-downflap_0
+      213: 7765292873387770120
+    second: pipe-green_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -178,13 +178,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: yellowbird-downflap_0
+      name: pipe-green_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 34
-        height: 24
+        width: 52
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,8 +193,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 72b5edd270ff75950800000000000000
-      internalID: 6437894598648814375
+      spriteID: 801862fd9bcd3cb60800000000000000
+      internalID: 7765292873387770120
       vertices: []
       indices: 
       edges: []
