@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
-	public static int score;
+	public static int pipeScore;
+	public static int mosquitoScore;
 	private Rigidbody2D rb2d;
 	private Collider2D[] colliders;
 	void Start()
 	{
-		score = 0;
+		pipeScore = 0;
+		mosquitoScore = 0;
 		rb2d = this.GetComponent<Rigidbody2D>();
 		colliders = this.GetComponents<Collider2D>();
 	}
@@ -41,8 +43,17 @@ public class BirdScript : MonoBehaviour
 		{
 			if (!colliders.Any(c => c.IsTouching(collision)))
 			{
-				score++;
+				pipeScore++;
 				Debug.Log(" + 1 Pipe");
+			}
+		}
+		if (collision.gameObject.CompareTag("Mosquito"))
+		{
+			if (colliders.Any(c => c.IsTouching(collision)))
+			{
+				mosquitoScore++;
+				collision.gameObject.SetActive(false);
+				Debug.Log(" + 1 Mosquito");
 			}
 		}
 	}

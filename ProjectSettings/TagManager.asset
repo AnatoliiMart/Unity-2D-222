@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Pipe
+  - PipeScore
+  - MosquitoScore
+  - Mosquito
   layers:
   - Default
   - TransparentFX
