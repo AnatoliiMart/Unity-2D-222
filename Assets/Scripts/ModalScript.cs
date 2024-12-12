@@ -1,35 +1,49 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ModalScript : MonoBehaviour
 {
     private GameObject content;
+    public static bool onPause = false;
     void Start()
     {
-        content = this.transform.Find("Content").gameObject;
-        if (content.activeInHierarchy)
-            Time.timeScale = 0;  // Pause the game when the modal is open.
-
+        content = transform.Find("Content").gameObject;
+        Time.timeScale = content.activeInHierarchy ? 0.0f : 1.0f;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = content.activeInHierarchy ? 1.0f : 0.0f;  // Toggle pause when escape key is pressed.
-            content.SetActive(!content.activeInHierarchy);
 
+            if (!onPause)
+            {
+                this.content.transform.Find("ContentStart").gameObject.SetActive(false);
+                this.content.transform.Find("ContentGameOver").gameObject.SetActive(false);
+                this.content.transform.Find("ContentPause").gameObject.SetActive(true);
+                onPause = true;
+            }
+            Time.timeScale = content.activeInHierarchy ? 1.0f : 0.0f;
+            this.content.SetActive(!this.content.activeInHierarchy);
         }
     }
+
     public void OnExitButtonClick()
     {
-        Application.Quit();  // Quit the game when the exit button is clicked.
+        Application.Quit();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
-    public void OnResumeButtonClick()
+
+    public void OnPlayButtonClick()
     {
         Time.timeScale = 1.0f;
-        content.SetActive(false);
+        this.content.SetActive(false);
+    }
+
+    public void OnRestartButtonClick()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

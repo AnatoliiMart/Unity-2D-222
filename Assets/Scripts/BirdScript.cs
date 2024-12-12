@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
+	[SerializeField]
+	private GameObject content;
 	public static int pipeScore;
 	public static int mosquitoScore;
 	private Rigidbody2D rb2d;
@@ -32,9 +34,13 @@ public class BirdScript : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Pipe"))
 		{
-			Debug.Log("Game Over");
+			content.SetActive(true);
+			Time.timeScale = content.activeInHierarchy ? 0.0f : 1.0f;
+			ModalScript.onPause = false;
+			content.transform.Find("ContentPause").gameObject.SetActive(false);
+			content.transform.Find("ContentGameOver").gameObject.SetActive(true);
 		}
-		Debug.Log("Collision with " + collision.gameObject.name);
+
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
