@@ -1,21 +1,49 @@
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
+	public static int score;
 	private Rigidbody2D rb2d;
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	private Collider2D[] colliders;
 	void Start()
 	{
-		rb2d = GetComponent<Rigidbody2D>();
+		score = 0;
+		rb2d = this.GetComponent<Rigidbody2D>();
+		colliders = this.GetComponents<Collider2D>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		if (Time.timeScale == 0) return;  // Do not move the bird when the game is paused.
+
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			rb2d.AddForce(Vector2.up * 300);
 		}
 		this.transform.eulerAngles = new Vector3(0, 0, rb2d.linearVelocityY * 2.5f);
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.CompareTag("Pipe"))
+		{
+			Debug.Log("Game Over");
+		}
+		Debug.Log("Collision with " + collision.gameObject.name);
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Pipe"))
+		{
+			if (!colliders.Any(c => c.IsTouching(collision)))
+			{
+				score++;
+				Debug.Log(" + 1 Pipe");
+			}
+		}
 	}
 }
